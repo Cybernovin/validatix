@@ -1,0 +1,27 @@
+{
+  "name": "validatix",
+  "version": "1.0.0",
+  "description": "a validator for what you want",
+  "main": "Validatix.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/S.khansary/Validator.git"
+  },
+  "keywords": [
+    "Validator"
+  ],
+  "author": "Siavash Khonsari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/S.khansary/Validator/issues"
+  },
+  "homepage": "https://gitlab.com/S.khansary/Validator#README",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
