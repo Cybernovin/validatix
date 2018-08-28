@@ -23,6 +23,21 @@ class validatix
 
 			MaxLen: function(str, value) {
 				return str.length <= value;
+			},
+
+			NationalIdNumber: function(str) {
+				if (!/^\d{10}$/.test(str)) {
+					return false;
+				}
+
+				let check = parseInt(str[9]);
+				let sum = 0;
+				for (let i = 0; i < 9; ++i) {
+					sum += parseInt(str[i]) * (10 - i);
+				}
+				sum = sum % 11;
+
+				return (sum < 2 && check === sum) || (sum >= 2 && sum + check === 11);
 			}
 		};
 	}
