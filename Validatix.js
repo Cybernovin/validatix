@@ -19,6 +19,10 @@ class validatix
 
 			Min: function(str, value) {
 				return str.length >= value;
+			},
+
+			Max: function(str, value) {
+				return str.length <= value;
 			}
 		};
 	}
