@@ -15,6 +15,10 @@ class validatix
 				if (typeof(matches) == undefined && matches.length == 0)
 					return false;
 				return regTest && iranPhoneCode.includes(matches[2]);
+			},
+
+			Min: function(str, value) {
+				return str.length >= value;
 			}
 		};
 	}
