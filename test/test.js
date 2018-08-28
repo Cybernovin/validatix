@@ -16,17 +16,17 @@ describe("Rules", function(){
 			}
 		});
 	});
-	describe("Check Min rule", function() {
+	describe("Check MinLen rule", function() {
 		it("Check valid cases", function() {
 			let validCase = [["123456", 0],["vjwfoingnj", 5],["", 0],["1", 1]];
 			for (let Case of validCase) {
-				expect(validatix.check(Case, "Min")).to.be.true;
+				expect(validatix.check(Case, "MinLen")).to.be.true;
 			}
 		});
 		it("Check invalid cases", function() {
 			let invalidCase = [["12356", 10],["vjwfoing", 9],["1234", 22],["1", 2]];
 			for (let Case of invalidCase) {
-				expect(validatix.check(Case, "Min")).to.be.false;
+				expect(validatix.check(Case, "MinLen")).to.be.false;
 			}
 		});
 	});

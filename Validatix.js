@@ -17,11 +17,11 @@ class validatix
 				return regTest && iranPhoneCode.includes(matches[2]);
 			},
 
-			Min: function(str, value) {
+			MinLen: function(str, value) {
 				return str.length >= value;
 			},
 
-			Max: function(str, value) {
+			MaxLen: function(str, value) {
 				return str.length <= value;
 			}
 		};
