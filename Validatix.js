@@ -18,5 +18,9 @@ class validatix
 			}
 		};
 	}
+
+	check(data, rule) {
+		return this.rules[rule](data);
+	}
 };
 module.exports = validatix
