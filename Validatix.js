@@ -24,7 +24,7 @@ class validatix
 	}
 
 	check(data, rule) {
-		return this.rules[rule](data);
+		return this.rules[rule].apply(null, data);
 	}
 };
 module.exports = validatix
