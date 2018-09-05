@@ -47,8 +47,18 @@ class validatix
 		};
 	}
 
+	static Captalize(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+
 	static create(){
 		let instanc = new validatix(interToken);
+		for (let i in instanc.rules) {
+			console.log("check" + validatix.Captalize(i));
+			instanc["check" + validatix.Captalize(i)] = function(data) {
+				return instanc.checkRule(data, i);
+			}
+		}
 		return instanc;
 	}
 	checkRule(data, rule) {
