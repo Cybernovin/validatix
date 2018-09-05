@@ -42,6 +42,10 @@ class validatix
 		};
 	}
 
+	static create(){
+		let instanc = new validatix();
+		return instanc;
+	}
 	checkRule(data, rule) {
 		return this.rules[rule].apply(null, data);
 	}
