@@ -61,6 +61,40 @@ class validatix
 		}
 		return instanc;
 	}
+	checkManyRules(dataRuleMessages) {
+		var messages = {};
+		var errors = {};
+		var errored = [];
+		let isOk = true;
+
+		dataRuleMessages.forEach(element => {
+			let Elementmessages = {};
+			let elementErrors = {};
+			let isElementOk = true;
+			element.ruleMessages.forEach(ruleMessage => {
+				if (this.checkRule(data, ruleMessage.rule)) {
+					Elementmessages[ruleMessage.rule] = "OK";
+				}
+				else {
+					isElementOk = false;
+					elementErrors[ruleMessage.rule] = ruleMessage.message;
+					Elementmessages[ruleMessage.rule] = ruleMessage.message;
+				}
+			});
+			if (!isElementOk)
+				errored.push(data.name);
+			Elementmessages.isOk = isElementOk;
+			isOk |= isElementOk;
+			errors[data.name] = elementErrors;
+			messages[data.name] = Elementmessages;
+		});
+		var result = {};
+		result.messages = messages;
+		result.errors = elementErrors
+		result.isOk = isOk;
+		return result;
+	}
+
 	checkRule(data, rule) {
 		return this.rules[rule].apply(null, data);
 	}
