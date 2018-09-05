@@ -1,7 +1,12 @@
+const interToken = Symbol("creation token for TestClass");
+
 class validatix
 {
-	constructor()
+	constructor(myt)
 	{
+		if (myt !== interToken) {
+			throw "Use static create function to create a new instance.";
+		}
 		this.rules = {
 			phoneNumber: function(str) {
 				let PHONENUMBER = /^(0|\+98)(9\d{2})(\d{7})$/
@@ -43,7 +48,7 @@ class validatix
 	}
 
 	static create(){
-		let instanc = new validatix();
+		let instanc = new validatix(interToken);
 		return instanc;
 	}
 	checkRule(data, rule) {
