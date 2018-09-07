@@ -43,6 +43,11 @@ class validatix
 				sum = sum % 11;
 
 				return (sum < 2 && check === sum) || (sum >= 2 && sum + check === 11);
+			},
+
+			required: function(data) {
+				data.minValue = 1;
+				return this.MinLen(data);
 			}
 		};
 	}
@@ -68,10 +73,15 @@ class validatix
 		let isOk = true;
 
 		dataRuleMessages.forEach(element => {
+			let isElementRequired = false;
 			let Elementmessages = {};
 			let elementErrors = {};
 			let isElementOk = true;
 			element.ruleMessages.forEach(ruleMessage => {
+				if (ruleMessage.rule === "required") {
+					isElementRequired = true;
+				}
+
 				if (this.checkRule(data, ruleMessage.rule)) {
 					Elementmessages[ruleMessage.rule] = "OK";
 				}
@@ -83,8 +93,9 @@ class validatix
 			});
 			if (!isElementOk)
 				errored.push(data.name);
+			if (isElementRequired && !isElementOk)
+				isOk = false;
 			Elementmessages.isOk = isElementOk;
-			isOk |= isElementOk;
 			errors[data.name] = elementErrors;
 			messages[data.name] = Elementmessages;
 		});
