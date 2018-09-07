@@ -1,7 +1,16 @@
 var expect = require("chai").expect;
+var sinon = require("sinon");
 var validatix = (require("../Validatix.js")).create()
 
 describe("Rules", function () {
+	it("Data also can be passed in rule", function () {
+		let spy = sinon.spy(validatix.rules, "phoneNumber");
+		let ValidNums = ["+989036776234", "+989334732392", "09214962753", "+989183191419", "09128821940"];
+		for (let number of ValidNums) {
+			validatix.checkRule({}, { name: "phoneNumber", str: number });
+			expect(spy.calledWith({ str: number })).to.be.true;
+		}
+	})
 	describe("Check PhoneNumber rule", function () {
 		it("Check valid numbers", function () {
 			let ValidNums = ["+989036776234", "+989334732392", "09214962753", "+989183191419", "09128821940"];
