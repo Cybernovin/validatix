@@ -8,37 +8,37 @@ class validatix
 			throw "Use static create function to create a new instance.";
 		}
 		this.rules = {
-			phoneNumber: function(str) {
+			phoneNumber: function(data) {
 				let PHONENUMBER = /^(0|\+98)(9\d{2})(\d{7})$/
 				let iranPhoneCode = ["901", "902", "903", "921", "922", "990", "999"];
 				for (let i = 0; i < 10; ++i){
 					iranPhoneCode.push("91" + i.toString());
 					iranPhoneCode.push("93" + i.toString());
 				}
-				let regTest = PHONENUMBER.test(str);
-				let matches = str.match(PHONENUMBER);
+				let regTest = PHONENUMBER.test(data.str);
+				let matches = data.str.match(PHONENUMBER);
 				if (typeof(matches) == undefined && matches.length == 0)
 					return false;
 				return regTest && iranPhoneCode.includes(matches[2]);
 			},
 
-			MinLen: function(str, value) {
-				return str.length >= value;
+			MinLen: function(data) {
+				return data.str.length >= data.minValue;
 			},
 
-			MaxLen: function(str, value) {
-				return str.length <= value;
+			MaxLen: function(data) {
+				return data.str.length <= data.maxValue;
 			},
 
-			NationalIdNumber: function(str) {
-				if (!/^\d{10}$/.test(str)) {
+			NationalIdNumber: function(data) {
+				if (!/^\d{10}$/.test(data.str)) {
 					return false;
 				}
 
-				let check = parseInt(str[9]);
+				let check = parseInt(data.str[9]);
 				let sum = 0;
 				for (let i = 0; i < 9; ++i) {
-					sum += parseInt(str[i]) * (10 - i);
+					sum += parseInt(data.str[i]) * (10 - i);
 				}
 				sum = sum % 11;
 
@@ -96,7 +96,7 @@ class validatix
 	}
 
 	checkRule(data, rule) {
-		return this.rules[rule].apply(null, data);
+		return this.rules[rule.name](data);
 	}
 };
 
