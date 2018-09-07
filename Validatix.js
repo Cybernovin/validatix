@@ -96,7 +96,13 @@ class validatix
 	}
 
 	checkRule(data, rule) {
-		return this.rules[rule.name](data);
+		let newData = Object.assign({}, data)
+		for (const i in rule) {
+			if (rule.hasOwnProperty(i) && i !== "name") {
+				newData[i] = rule[i];
+			}
+		}
+		return this.rules[rule.name](newData);
 	}
 };
 
