@@ -7,6 +7,23 @@ class validatix
 		if (myt !== interToken) {
 			throw "Use static create function to create a new instance.";
 		}
+
+		this.lastValidate = {
+			createBag: function(messages, errors, isOk) {
+				this.messages = messages;
+				this.errors = errors;
+				this.isOk = isOk;
+				return this;
+
+				for (const error in errors) {
+					if (errors.hasOwnProperty(error)) {
+						this.errored.push(error);
+					}
+				}
+			},
+			purgeBag: function(){this.createBag({},{},{})}
+		};
+
 		this.rules = {
 			phoneNumber: function(data) {
 				let PHONENUMBER = /^(0|\+98)(9\d{2})(\d{7})$/
@@ -98,11 +115,8 @@ class validatix
 			errors[element.data.name] = elementErrors;
 			messages[element.data.name] = Elementmessages;
 		});
-		var result = {};
-		result.messages = messages;
-		result.errors = elementErrors
-		result.isOk = isOk;
-		return result;
+		this.lastValidate.createBag(messages, errors, isOk);
+		return this.lastValidate;
 	}
 
 	checkRule(data, rule) {
