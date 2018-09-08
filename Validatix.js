@@ -59,7 +59,6 @@ class validatix
 	static create(){
 		let instanc = new validatix(interToken);
 		for (let i in instanc.rules) {
-			console.log("check" + validatix.Captalize(i));
 			instanc["check" + validatix.Captalize(i)] = function(data) {
 				return instanc.checkRule(data, i);
 			}
@@ -82,22 +81,22 @@ class validatix
 					isElementRequired = true;
 				}
 
-				if (this.checkRule(data, ruleMessage.rule)) {
-					Elementmessages[ruleMessage.rule] = "OK";
+				if (this.checkRule(element.data, ruleMessage.rule)) {
+					Elementmessages[ruleMessage.rule.name] = "OK";
 				}
 				else {
 					isElementOk = false;
-					elementErrors[ruleMessage.rule] = ruleMessage.message;
-					Elementmessages[ruleMessage.rule] = ruleMessage.message;
+					elementErrors[ruleMessage.rule.name] = ruleMessage.message;
+					Elementmessages[ruleMessage.rule.name] = ruleMessage.message;
 				}
 			});
 			if (!isElementOk)
-				errored.push(data.name);
+				errored.push(element.data.name);
 			if (isElementRequired && !isElementOk)
 				isOk = false;
 			Elementmessages.isOk = isElementOk;
-			errors[data.name] = elementErrors;
-			messages[data.name] = Elementmessages;
+			errors[element.data.name] = elementErrors;
+			messages[element.data.name] = Elementmessages;
 		});
 		var result = {};
 		result.messages = messages;
