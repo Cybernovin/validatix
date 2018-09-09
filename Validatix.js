@@ -73,12 +73,15 @@ class validatix
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
-	static create(){
+	static create(dataRuleMessages){
 		let instanc = new validatix(interToken);
 		for (let i in instanc.rules) {
 			instanc["check" + validatix.Captalize(i)] = function(data) {
 				return instanc.checkRule(data, i);
 			}
+		}
+		if (dataRuleMessages) {
+			instanc.checkManyRules(dataRuleMessages);
 		}
 		return instanc;
 	}
