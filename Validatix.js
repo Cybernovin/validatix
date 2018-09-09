@@ -13,13 +13,13 @@ class validatix
 				this.messages = messages;
 				this.errors = errors;
 				this.isOk = isOk;
-				return this;
-
 				for (const error in errors) {
 					if (errors.hasOwnProperty(error)) {
 						this.errored.push(error);
 					}
 				}
+
+				return this;
 			},
 			purgeBag: function(){this.createBag({},{},{})}
 		};
